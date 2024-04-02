@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+    <link rel="stylesheet" href="/styles/uploadForm.css">
+</head>
+
+<body class="dark-mode">
+    <div class="container">
+        <h1 class="title">Upload Form</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file" class="label">Select a file:</label>
+                <input type="file" id="file" name="file" accept=".csv,.xlsx" class="file-input" />
+                <button type="button" class="clear-btn" onclick="clearFileSelection()">Clear</button>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+    <script src="/scripts/uploadForm.js"></script>
+</body>
+
+</html>
