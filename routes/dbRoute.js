@@ -1,5 +1,5 @@
 const express = require('express');
-const {saveEmail} = require('../controller/saveController');
+const {saveEmail} = require('../controller/dbController');
 
 const router = express.Router();
 
