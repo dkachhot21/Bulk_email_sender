@@ -65,6 +65,8 @@ const deleteEmail = asyncHandler(async (req, res) => {
     res.status(constants.OK).json({ message: 'Email deleted successfully', email: deletedEmail });
 });
 
+// @desc    Upload file to the DB used in sendEmailController
+// @access  Public
 const uploadToDatabase = asyncHandler(async (data) => {
     for (const item of data) {
         try {

@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Email = require('../models/emailsModel');
 const sendEmailFunc = require('../config/sendFunction');
-const dotenv = require('dotenv').config();
 
 //@desc send email to the list
 //@route GET /sendEmails

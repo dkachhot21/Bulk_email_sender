@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 //Imported Routes
 const sendRoute = require('./routes/sendRoute.js')
-const saveRoute=require('./routes/dbRoute.js');
+const saveRoute = require('./routes/dbRoute.js');
 const uploadRoute = require('./routes/uploadRoute.js');
 
 //Imported DB connection Function
@@ -17,7 +17,7 @@ const app = express();
 
 //Setting up views
 app.set('view engine', 'ejs');
-app.set('views','./views');
+app.set('views', './views');
 
 // Serve static files
 app.use(express.static('public'));
@@ -29,9 +29,9 @@ app.use(express.json());
 connectDB();
 
 // Routes
-app.use('/sendEmails',sendRoute);
-app.use('/db',saveRoute);
-app.use('/upload',uploadRoute);
+app.use('/sendEmails', sendRoute);
+app.use('/db', saveRoute);
+app.use('/upload', uploadRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

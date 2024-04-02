@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {saveEmail, getEmails, deleteEmail} = require('../controller/dbController');
 
 const router = express.Router();
