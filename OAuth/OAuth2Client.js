@@ -15,4 +15,4 @@ OAuth2Client.setCredentials({
 
 const access_token = asyncHandler(OAuth2Client.getAccessToken());
 
-module.exports = { OAuth2Client, access_token };
+module.exports = {OAuth2Client,access_token};

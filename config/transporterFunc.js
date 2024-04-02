@@ -1,4 +1,4 @@
-const { OAuth2Client, access_token } = require('../OAuth/OAuth2Client');
+const { OAuth2Client,access_token } = require('../OAuth/OAuth2Client');
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv').config();
@@ -9,9 +9,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         type: 'OAuth2',
         user: process.env.EMAIL,
-        clientId: process.env.YOUR_CLIENT_ID,
-        clientSecret: process.env.YOUR_CLIENT_SECRET,
-        refreshToken: process.env.YOUR_REFRESH_TOKEN,
+        clientId: process.env.ID,
+        clientSecret: process.env.Sec,
+        refreshToken: process.env.REFRESH,
         accessToken: access_token
     }
 });
