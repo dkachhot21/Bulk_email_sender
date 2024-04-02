@@ -13,9 +13,9 @@ const sendEmailFunc = expressAsyncHandler(async (to, subject, html, data) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log('Error occurred:', data);
+            console.log('Error occurred:', to);
         } else {
-            console.log('Email sent:*', data,"*",info.response);
+            console.log('Email sent to:', to);
         }
     });
 });

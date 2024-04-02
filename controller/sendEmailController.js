@@ -1,25 +1,26 @@
 const asyncHandler = require('express-async-handler');
-const Emails = require('../models/emailsModel');
+const Email = require('../models/emailsModel');
 const sendEmailFunc = require('../config/sendFunction');
 const dotenv = require('dotenv').config();
-const jsonData = require('../mail');
 
 //@desc send email to the list
 //@route GET /sendEmails
 //@access Public
 const sendEmailController = asyncHandler(async (req,res)=>{
-    jsonData.emails.forEach(emailObj => {
+    const emails=await Email.find();
+    if(!emails.length) return res.status(404).json({msg:'No emails found'});
+    emails.forEach(async (emailObj) =>{
         const to = emailObj.email;
-        const teamLeadName = emailObj.data.teamLeadName; // Assuming 'teamLeadName' is a dynamic detail
+        const teamLeadName = emailObj.name;
         const subject = `Hello ${teamLeadName}, regarding your team's progress`;
         const html = `<p>Dear ${teamLeadName},</p>
                   <p>This is an automated email regarding your team's progress.</p>
                   <p>Please find the details below:</p>
-                  <p>${emailObj.data.details}</p>
+                  <p>${emailObj.data}</p>
                   <p>Regards,</p>
-                  <p>Your Name</p>`; // Update 'Your Name' accordingly
+                  <p>Deepak</p>`;
 
-        sendEmailFunc(to, subject, html, emailObj.data.details);
+        sendEmailFunc(to, subject, html, emailObj.data);
     });
 
     res.send('Emails sent successfully');
