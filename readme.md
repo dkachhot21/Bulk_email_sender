@@ -77,7 +77,7 @@ Follow the steps below to set up the project, obtain the required credentials, a
 
 ### Step 9: Save Emails to the DataBase
 
-- To save emails to the database simply make a POST request to http://localhost:3000/db/save with the email address in the req body.
+1. To save emails to the database simply make a POST request to the endpoint `/db/save` of your server (e.g., `http://localhost:3000/db/save`) with the email address in the req body.
 
 ### Step 10: Trigger Email Sending
 
