@@ -1,8 +1,10 @@
 const express = require('express');
-const {saveEmail} = require('../controller/dbController');
+const {saveEmail, getEmails, deleteEmail} = require('../controller/dbController');
 
 const router = express.Router();
 
-router.route('/save').post(saveEmail);
+router.route('/email').post(saveEmail);
+router.route('/email').get(getEmails);
+router.route('/email').delete(deleteEmail);
 
 module.exports = router;
