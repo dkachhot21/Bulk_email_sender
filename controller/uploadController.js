@@ -1,8 +1,7 @@
 // const multer = require('multer');
 const asyncHandler = require('express-async-handler');
 const parseCSV = require('../config/parseCSV');
-const parseXLSX = require('../config/parseXLSX');
-
+const XLSX = require('xlsx');
 // const upload = multer();
 
 // @desc    Show the upload form
@@ -18,16 +17,53 @@ const renderUploadForm = asyncHandler((req, res) => {
 // @access  Public
 const uploadFile = asyncHandler(/* upload.single('file'), */ async (req, res) => {
     const { file } = req;
-    if (file) {
-        if (file.originalname.endsWith('.csv')) {
-            await parseCSV(file, res);
-        } else if (file.originalname.endsWith('.xlsx')) {
-            await parseXLSX(file, res);
-        } else {
-            res.status(400).send('Invalid file type! Please use .csv or .xlsx files only.');
-        }
+    if (!file) {
+        return res.status(400).send('No file uploaded.');
     }
-    // res.status(200).send('File uploaded successfully');
+
+    const filePath = file.path;
+    console.log('Uploaded file path:', filePath);
+
+    if (!file.originalname.endsWith('.csv') && !file.originalname.endsWith('.xlsx')) {
+        return res.status(400).send('Invalid file type! Please use .csv or .xlsx files only.');
+    }
+
+    try {
+        if (file.originalname.endsWith('.xlsx')) {
+            console.log('Converting XLSX to CSV...');
+            const workBook = XLSX.readFile(filePath);
+            // const csvFilePath = `${filePath}.csv`;
+            XLSX.writeFile(workBook, filePath, { bookType: "csv" });
+            console.log('XLSX converted to CSV successfully. CSV file path:', filePath);
+            await parseCSV(filePath, res);
+        } else {
+            console.log('Using uploaded CSV file:', filePath);
+            await parseCSV(filePath, res);
+        }
+    } catch (error) {
+        console.error('Error during file processing:', error);
+        return res.status(500).send('Error processing the file.');
+    }
+
+
+    // if (file.originalname.endsWith('.csv') || file.originalname.endsWith('.xlsx')) {
+    //     let filePath = file.path;
+    //     if (file.originalname.endsWith('.xlsx')) {
+    //         try {
+    //             const workBook = XLSX.readFile(file.path);
+    //             const csvFilePath = `${file.path}.csv`;
+    //             XLSX.writeFile(workBook, csvFilePath, { bookType: "csv" });
+    //             filePath = csvFilePath;
+    //         } catch (error) {
+    //             console.error("Error converting XLSX to CSV:", error);
+    //             return res.status(500).send('Error converting XLSX to CSV');
+    //         }
+    //     }
+    //     await parseCSV(filePath, res);
+    // } else {
+    //     res.status(400).send('Invalid file type! Please use .csv or .xlsx files only.');
+    // }
+
 });
 
 module.exports = { renderUploadForm, uploadFile };

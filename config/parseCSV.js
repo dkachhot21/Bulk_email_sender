@@ -2,10 +2,10 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const { uploadToDatabase } = require('../controller/dbController');
 
-function parseCSV(file, res) {
+function parseCSV(filePath, res) {
     return new Promise((resolve, reject) => {
         const emails = [];
-        fs.createReadStream(file.path)
+        fs.createReadStream(filePath)
             .pipe(csv())
             .on('data', (row) => {
                 const email = row.email;
