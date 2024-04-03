@@ -35,7 +35,7 @@ const saveEmail = asyncHandler(async (req, res) => {
             email: newEmail.email
         });
     } else {
-        res.status(constants.INTERNAL_SERVER_ERROR).json({ 
+        res.status(constants.INTERNAL_SERVER_ERROR).json({
             message: "Something went wrong!",
             email: email
         });
@@ -67,14 +67,29 @@ const deleteEmail = asyncHandler(async (req, res) => {
 
 // @desc    Upload file to the DB used in sendEmailController
 // @access  Public
-const uploadToDatabase = asyncHandler(async (data) => {
-    for (const item of data) {
-        try {
-            await saveEmail(item.name, item.email, item.data);
-            console.log('Email saved to database');
-        } catch (error) {
-            console.error('Error saving email to database:', error);
+const uploadToDatabase = asyncHandler(async (emails, res) => {
+    const conflicts = [];
+
+    for (const emailData of emails) {
+        const { email, name, data } = emailData;
+        const emailExists = await Email.findOne({ email });
+
+        if (!email) {
+            continue;
         }
+
+        if (emailExists) {
+            conflicts.push({ email, reason: 'Duplicate email' });
+            continue;
+        }
+
+        await Email.create({ email, name, data });
+    }
+
+    if (conflicts.length > 0) {
+        res.status(constants.OK).json({ CONFLICT: conflicts });
+    } else {
+        res.status(constants.CREATED).json({ message: 'Data saved successfully' });
     }
 });
 
