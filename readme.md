@@ -78,7 +78,7 @@ Follow the steps below to set up the project, obtain the required credentials, a
 ### Step 9: Save Emails to the DataBase
 
 1. To save emails to the database simply make a POST request to the endpoint `/db/save` of your server (e.g., `http://localhost:3000/db/save`) with the email address in the req body.
-2. Or you can upload the .csv or .xlsx file (For now only cvs can identify and use only the required 3 columns and ignore rest of them, xlsx file must have those 3 in order i.e. name, email, data) and upload them on the endpoint `/upload` of your server (e.g., `http://localhost:3000/upload`). This will automatically make a POST request with the selected file in request and save the data in DB.
+2. Or you can upload the .csv or .xlsx file (For now only cvs can identify and use only the required 3 columns and ignore rest of them, xlsx file must have these first 3 columns in order i.e. name, email, data) and upload them on the endpoint `/upload` of your server (e.g., `http://localhost:3000/upload`). This will automatically make a POST request with the selected file in request and save the data in DB.
 
 ### Step 10: Trigger Email Sending
 
