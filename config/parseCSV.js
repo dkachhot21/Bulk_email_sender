@@ -8,10 +8,13 @@ function parseCSV(filePath, res) {
         fs.createReadStream(filePath)
             .pipe(csv())
             .on('data', (row) => {
+                const column1 = Object.keys(row)[0].replace(/['"]+/g, '').trim();
+                row[column1] = row[`${Object.keys(row)[0]}`];
+                delete  row[`${Object.keys(row)[0]}`];
                 const email = row.email;
                 const name = row.name || email.split('@')[0];
                 const data = row.data || 'Data';
-
+                
                 if (!email) {
                     return;
                 }

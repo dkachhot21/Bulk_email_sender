@@ -32,10 +32,10 @@ const uploadFile = asyncHandler(/* upload.single('file'), */ async (req, res) =>
         if (file.originalname.endsWith('.xlsx')) {
             console.log('Converting XLSX to CSV...');
             const workBook = XLSX.readFile(filePath);
-            // const csvFilePath = `${filePath}.csv`;
-            XLSX.writeFile(workBook, filePath, { bookType: "csv" });
-            console.log('XLSX converted to CSV successfully. CSV file path:', filePath);
-            await parseCSV(filePath, res);
+            const csvFilePath = `${filePath}.csv`;
+            XLSX.writeFile(workBook, csvFilePath, { bookType: "csv" });
+            console.log('XLSX converted to CSV successfully. CSV file path:', csvFilePath);
+            await parseCSV(csvFilePath, res);
         } else {
             console.log('Using uploaded CSV file:', filePath);
             await parseCSV(filePath, res);
@@ -44,26 +44,6 @@ const uploadFile = asyncHandler(/* upload.single('file'), */ async (req, res) =>
         console.error('Error during file processing:', error);
         return res.status(500).send('Error processing the file.');
     }
-
-
-    // if (file.originalname.endsWith('.csv') || file.originalname.endsWith('.xlsx')) {
-    //     let filePath = file.path;
-    //     if (file.originalname.endsWith('.xlsx')) {
-    //         try {
-    //             const workBook = XLSX.readFile(file.path);
-    //             const csvFilePath = `${file.path}.csv`;
-    //             XLSX.writeFile(workBook, csvFilePath, { bookType: "csv" });
-    //             filePath = csvFilePath;
-    //         } catch (error) {
-    //             console.error("Error converting XLSX to CSV:", error);
-    //             return res.status(500).send('Error converting XLSX to CSV');
-    //         }
-    //     }
-    //     await parseCSV(filePath, res);
-    // } else {
-    //     res.status(400).send('Invalid file type! Please use .csv or .xlsx files only.');
-    // }
-
 });
 
 module.exports = { renderUploadForm, uploadFile };
