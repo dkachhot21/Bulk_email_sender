@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   name: Email
+ *   name: Database Access
  *   description: Operations related to Database access
  */
 
@@ -17,7 +17,7 @@ const router = express.Router();
  *   post:
  *     summary: Save email
  *     description: Save name, email, and data to the database.
- *     tags: [Email]
+ *     tags: [Database Access]
  *     requestBody:
  *       required: true
  *       content:
@@ -41,7 +41,7 @@ const router = express.Router();
  *   get:
  *     summary: Get all emails
  *     description: Retrieve all email records from the database.
- *     tags: [Email]
+ *     tags: [Database Access]
  *     responses:
  *       '200':
  *         description: Successful operation
@@ -50,7 +50,7 @@ const router = express.Router();
  *   delete:
  *     summary: Delete email
  *     description: Delete an email record from the database by email address.
- *     tags: [Email]
+ *     tags: [Database Access]
  *     requestBody:
  *       required: true
  *       content:
