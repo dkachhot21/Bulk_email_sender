@@ -8,10 +8,18 @@ const upload = multer({ dest: 'uploads/' });
 
 /**
  * @swagger
+ * tags:
+ *   name: File upload
+ *   description: File uploading
+ */
+
+/**
+ * @swagger
  * /upload:
  *   post:
  *     summary: Upload file
  *     description: Upload a CSV or XLSX file and save data to the database.
+ *     tags: [File upload]
  *     requestBody:
  *       required: true
  *       content:

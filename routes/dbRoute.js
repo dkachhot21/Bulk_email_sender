@@ -6,10 +6,18 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Email
+ *   description: Operations related to Database access
+ */
+
+/**
+ * @swagger
  * /db/email:
  *   post:
  *     summary: Save email
  *     description: Save name, email, and data to the database.
+ *     tags: [Email]
  *     requestBody:
  *       required: true
  *       content:
@@ -33,6 +41,7 @@ const router = express.Router();
  *   get:
  *     summary: Get all emails
  *     description: Retrieve all email records from the database.
+ *     tags: [Email]
  *     responses:
  *       '200':
  *         description: Successful operation
@@ -41,6 +50,7 @@ const router = express.Router();
  *   delete:
  *     summary: Delete email
  *     description: Delete an email record from the database by email address.
+ *     tags: [Email]
  *     requestBody:
  *       required: true
  *       content:
