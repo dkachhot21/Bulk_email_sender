@@ -1,12 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 
+const { specs, swaggerUi } = require('./swagger');
+
 // Define the port for the server to listen on
 const PORT = process.env.PORT || 3000;
 
 //Imported Routes
 const sendRoute = require('./routes/sendRoute.js')
-const saveRoute = require('./routes/dbRoute.js');
+const dbRoute = require('./routes/dbRoute.js');
 const uploadRoute = require('./routes/uploadRoute.js');
 
 //Imported DB connection Function
@@ -30,8 +32,11 @@ connectDB();
 
 // Routes
 app.use('/sendEmails', sendRoute);
-app.use('/db', saveRoute);
+app.use('/db', dbRoute);
 app.use('/upload', uploadRoute);
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
