@@ -14,6 +14,10 @@ const options = {
                 url: 'http://localhost:3000', // Change this to your server URL
                 description: 'Local server',
             },
+            {
+                url: 'https://bulk-email-sender-5pem.onrender.com',
+                description: 'Production Server',
+            }
         ],
     },
     apis: ['./routes/*.js'], // Path to the routes folder or specific route files
